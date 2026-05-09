@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -20,639 +19,163 @@
     --white: #eef2ff;
   }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
-background: var(–bg);
-color: var(–text);
-font-family: ‘Space Grotesk’, sans-serif;
-font-weight: 300;
-overflow-x: hidden;
-min-height: 100vh;
-}
+  body {
+    background: var(--bg); /* Fixed en-dash to double hyphen */
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
 
-/* ── NOISE TEXTURE ── */
-body::before {
-content: ‘’;
-position: fixed; inset: 0; z-index: 0;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-pointer-events: none;
-}
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
 
-/* ── AMBIENT GLOW ── */
-.glow-orb {
-position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0;
-}
-.glow-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,229,192,0.07), transparent 70%); top: -200px; left: -200px; }
-.glow-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(123,92,255,0.08), transparent 70%); bottom: 10%; right: -150px; }
-.glow-3 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(255,107,53,0.05), transparent 70%); top: 50%; left: 40%; }
+  /* ── AMBIENT GLOW ── */
+  .glow-orb {
+    position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0;
+  }
+  .glow-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,229,192,0.07), transparent 70%); top: -200px; left: -200px; }
+  .glow-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(123,92,255,0.08), transparent 70%); bottom: 10%; right: -150px; }
+  .glow-3 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(255,107,53,0.05), transparent 70%); top: 50%; left: 40%; }
 
-.page { position: relative; z-index: 1; }
+  .page { position: relative; z-index: 1; }
 
-/* ── NAV ── */
-nav {
-display: flex; align-items: center; justify-content: space-between;
-padding: 1.5rem 3rem;
-border-bottom: 1px solid var(–border);
-backdrop-filter: blur(12px);
-position: sticky; top: 0; z-index: 100;
-background: rgba(4,6,13,0.7);
-}
-.nav-logo {
-font-family: ‘Fraunces’, serif;
-font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em;
-color: var(–white);
-}
-.nav-logo span { color: var(–accent); }
-.nav-links { display: flex; gap: 2rem; }
-.nav-links a {
-font-family: ‘DM Mono’, monospace; font-size: 0.75rem; letter-spacing: 0.08em;
-color: var(–muted); text-decoration: none; text-transform: uppercase;
-transition: color 0.2s;
-}
-.nav-links a:hover { color: var(–accent); }
-.nav-badge {
-font-family: ‘DM Mono’, monospace; font-size: 0.7rem;
-border: 1px solid var(–accent); color: var(–accent);
-padding: 0.3rem 0.8rem; border-radius: 2px; letter-spacing: 0.1em;
-}
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(4,6,13,0.7);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em;
+    color: var(--muted); text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-badge {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    border: 1px solid var(--accent); color: var(--accent);
+    padding: 0.3rem 0.8rem; border-radius: 2px;
+  }
 
-/* ── HERO ── */
-.hero {
-padding: 7rem 3rem 5rem;
-max-width: 1100px; margin: 0 auto;
-display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
-}
-.hero-eyebrow {
-font-family: ‘DM Mono’, monospace; font-size: 0.72rem;
-letter-spacing: 0.15em; text-transform: uppercase;
-color: var(–accent); margin-bottom: 1.5rem;
-display: flex; align-items: center; gap: 0.6rem;
-}
-.hero-eyebrow::before { content: ‘//’; opacity: 0.5; }
-h1 {
-font-family: ‘Fraunces’, serif;
-font-size: clamp(2.8rem, 5vw, 4.2rem);
-font-weight: 700; line-height: 1.05;
-color: var(–white); letter-spacing: -0.03em;
-margin-bottom: 1.5rem;
-}
-h1 em {
-font-style: italic; font-weight: 200;
-color: var(–accent); font-size: 1.1em;
-}
-.hero-sub {
-font-size: 1.05rem; line-height: 1.7;
-color: var(–text); margin-bottom: 2.5rem; max-width: 480px;
-}
-.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-.btn-primary {
-background: var(–accent); color: #04060d;
-padding: 0.8rem 1.8rem; border: none;
-font-family: ‘DM Mono’, monospace; font-size: 0.8rem; font-weight: 500;
-letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
-clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-transition: transform 0.15s, box-shadow 0.15s;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,192,0.25); }
-.btn-ghost {
-background: transparent; color: var(–text);
-padding: 0.8rem 1.8rem; border: 1px solid var(–border);
-font-family: ‘DM Mono’, monospace; font-size: 0.8rem;
-letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
-transition: border-color 0.2s, color 0.2s;
-}
-.btn-ghost:hover { border-color: var(–accent2); color: var(–accent2); }
+  /* ── HERO ── */
+  .hero {
+    padding: 7rem 3rem 5rem;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--white); margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: italic; font-weight: 200; color: var(--accent); font-size: 1.1em; }
+  .hero-sub { font-size: 1.05rem; line-height: 1.7; color: var(--text); margin-bottom: 2.5rem; }
 
-/* ── GRAPH VISUALIZER ── */
-.graph-viz {
-position: relative; height: 380px;
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 4px;
-overflow: hidden;
-}
-.graph-viz::before {
-content: ‘’;
-position: absolute; inset: 0;
-background: radial-gradient(ellipse at 50% 50%, rgba(0,229,192,0.04) 0%, transparent 70%);
-}
-.graph-svg { width: 100%; height: 100%; }
+  .btn-primary {
+    background: var(--accent); color: #04060d;
+    padding: 0.8rem 1.8rem; border: none;
+    font-family: 'DM Mono', monospace; font-size: 0.8rem; text-transform: uppercase; cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
 
-/* ── PITCH LINE ── */
-.pitch-bar {
-background: var(–surface);
-border-top: 1px solid var(–border); border-bottom: 1px solid var(–border);
-padding: 1.5rem 3rem;
-display: flex; align-items: center; justify-content: center; gap: 1rem;
-font-family: ‘Fraunces’, serif; font-style: italic; font-weight: 200;
-font-size: 1.1rem; color: var(–muted); text-align: center;
-}
-.pitch-bar strong { color: var(–white); font-style: normal; font-weight: 700; }
+  /* ── GRAPH VISUALIZER ── */
+  .graph-viz {
+    position: relative; height: 380px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+  }
 
-/* ── SECTIONS ── */
-section { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem; }
-.section-label {
-font-family: ‘DM Mono’, monospace; font-size: 0.7rem;
-letter-spacing: 0.15em; text-transform: uppercase;
-color: var(–accent2); margin-bottom: 0.8rem;
-}
-h2 {
-font-family: ‘Fraunces’, serif;
-font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
-color: var(–white); letter-spacing: -0.02em; line-height: 1.1;
-margin-bottom: 1.5rem;
-}
+  /* ── ARCHITECTURE LAYERS ── */
+  .layers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; margin-top: 3rem; background: var(--border); }
+  .layer-card {
+    background: var(--surface); padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.2s;
+  }
+  .layer-card:hover { background: var(--surface2); }
+  .layer-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; color: var(--white); }
+  .layer-desc { font-size: 0.9rem; line-height: 1.6; color: var(--text); margin-top: 1rem; }
 
-/* ── THREE LAYERS ── */
-.layers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; margin-top: 3rem; }
-.layer-card {
-background: var(–surface); padding: 2.5rem 2rem;
-position: relative; overflow: hidden;
-transition: background 0.2s;
-}
-.layer-card:hover { background: var(–surface2); }
-.layer-card::before {
-content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-}
-.layer-card:nth-child(1)::before { background: var(–accent); }
-.layer-card:nth-child(2)::before { background: var(–accent2); }
-.layer-card:nth-child(3)::before { background: var(–accent3); }
-.layer-num {
-font-family: ‘Fraunces’, serif; font-size: 3.5rem; font-weight: 700;
-line-height: 1; color: var(–border); margin-bottom: 1rem;
-position: absolute; top: 1rem; right: 1.5rem;
-}
-.layer-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-.layer-title {
-font-family: ‘Fraunces’, serif; font-size: 1.2rem; font-weight: 700;
-color: var(–white); margin-bottom: 0.3rem;
-}
-.layer-sub {
-font-family: ‘DM Mono’, monospace; font-size: 0.7rem;
-color: var(–accent); letter-spacing: 0.08em; margin-bottom: 1rem;
-}
-.layer-desc { font-size: 0.9rem; line-height: 1.6; color: var(–text); }
-.layer-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1.2rem; }
-.tag {
-font-family: ‘DM Mono’, monospace; font-size: 0.65rem; letter-spacing: 0.06em;
-padding: 0.25rem 0.6rem; border-radius: 2px;
-border: 1px solid var(–border); color: var(–muted);
-}
+  /* ── FOOTER ── */
+  .cta-footer {
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 5rem 3rem; text-align: center;
+  }
 
-/* ── FLOW DIAGRAM ── */
-.flow-section { background: var(–surface); border: 1px solid var(–border); padding: 3rem; border-radius: 4px; margin-top: 3rem; }
-.flow-title { font-family: ‘DM Mono’, monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(–muted); margin-bottom: 2rem; }
-.flow-steps { display: flex; align-items: stretch; gap: 0; }
-.flow-step {
-flex: 1; padding: 1.5rem;
-border-right: 1px solid var(–border);
-position: relative;
-}
-.flow-step:last-child { border-right: none; }
-.flow-step-num {
-font-family: ‘DM Mono’, monospace; font-size: 0.65rem; color: var(–muted);
-margin-bottom: 0.5rem;
-}
-.flow-step-title { font-family: ‘Fraunces’, serif; font-size: 1rem; font-weight: 700; color: var(–white); margin-bottom: 0.5rem; }
-.flow-step-desc { font-size: 0.82rem; color: var(–text); line-height: 1.5; }
-.flow-arrow {
-display: flex; align-items: center; padding: 0 0.5rem;
-color: var(–accent); font-size: 1.2rem; flex-shrink: 0;
-}
-.code-chip {
-margin-top: 1rem; background: var(–bg);
-border: 1px solid var(–border); border-radius: 2px;
-padding: 0.6rem 0.8rem;
-font-family: ‘DM Mono’, monospace; font-size: 0.68rem;
-color: var(–accent); line-height: 1.5;
-}
-.code-chip .kw { color: var(–accent2); }
-.code-chip .fn { color: var(–accent3); }
-.code-chip .str { color: var(–accent); }
-
-/* ── WHY WIN ── */
-.why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
-.why-card {
-background: var(–surface); border: 1px solid var(–border);
-padding: 2rem; border-radius: 4px; position: relative;
-transition: border-color 0.2s;
-}
-.why-card:hover { border-color: var(–accent2); }
-.why-card-icon { font-size: 1.5rem; margin-bottom: 1rem; }
-.why-card-title { font-family: ‘Fraunces’, serif; font-size: 1.1rem; font-weight: 700; color: var(–white); margin-bottom: 0.6rem; }
-.why-card-desc { font-size: 0.88rem; line-height: 1.65; color: var(–text); }
-.why-highlight { color: var(–accent); font-weight: 500; }
-
-/* ── COMPAT ── */
-.compat-section { margin-top: 3rem; }
-.compat-label { font-family: ‘DM Mono’, monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(–muted); margin-bottom: 1.5rem; }
-.compat-pills { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-.compat-pill {
-border: 1px solid var(–border); padding: 0.5rem 1.2rem; border-radius: 100px;
-font-family: ‘DM Mono’, monospace; font-size: 0.72rem; color: var(–text);
-transition: border-color 0.2s, color 0.2s;
-}
-.compat-pill:hover { border-color: var(–accent); color: var(–accent); }
-
-/* ── MVP ROADMAP ── */
-.roadmap { margin-top: 3rem; }
-.roadmap-item { display: flex; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(–border); }
-.roadmap-item:last-child { border-bottom: none; }
-.roadmap-step {
-font-family: ‘Fraunces’, serif; font-size: 2rem; font-weight: 700;
-color: var(–border); flex-shrink: 0; line-height: 1; width: 3rem;
-}
-.roadmap-content { flex: 1; }
-.roadmap-title { font-family: ‘Fraunces’, serif; font-size: 1.15rem; font-weight: 700; color: var(–white); margin-bottom: 0.4rem; }
-.roadmap-desc { font-size: 0.88rem; line-height: 1.6; color: var(–text); margin-bottom: 1rem; }
-.code-block {
-background: var(–bg); border: 1px solid var(–border); border-radius: 4px;
-padding: 1rem 1.2rem;
-font-family: ‘DM Mono’, monospace; font-size: 0.72rem; color: var(–text);
-line-height: 1.7; overflow-x: auto;
-}
-.c-comment { color: var(–muted); font-style: italic; }
-.c-kw { color: var(–accent2); }
-.c-fn { color: var(–accent3); }
-.c-str { color: var(–accent); }
-.c-var { color: #a8d8ff; }
-.c-cls { color: #ffd080; }
-
-/* ── CTA FOOTER ── */
-.cta-footer {
-background: var(–surface);
-border-top: 1px solid var(–border);
-padding: 5rem 3rem; text-align: center;
-}
-.cta-footer h2 { margin-bottom: 1rem; }
-.cta-footer p { color: var(–muted); margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7; margin-bottom: 2.5rem; }
-.github-link {
-display: inline-flex; align-items: center; gap: 0.8rem;
-background: var(–white); color: #04060d;
-padding: 1rem 2.5rem;
-font-family: ‘DM Mono’, monospace; font-size: 0.82rem; font-weight: 500;
-letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase;
-clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-transition: transform 0.15s;
-}
-.github-link:hover { transform: translateY(-2px); }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-@keyframes dash { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
-@keyframes nodePop { 0% { r: 6; } 50% { r: 9; } 100% { r: 6; } }
-
-.hero-left { animation: fadeUp 0.7s ease both; }
-.hero-right { animation: fadeUp 0.7s 0.15s ease both; }
-
-/* ── GRAPH NODES (SVG) ── */
-.graph-node { cursor: pointer; }
-.graph-node circle { transition: r 0.2s; }
-.graph-node:hover circle { r: 11; }
-.graph-edge { stroke: var(–border); stroke-width: 1.5; fill: none; stroke-dasharray: 4 4; animation: dash 3s linear infinite; }
-.graph-edge-active { stroke: rgba(0,229,192,0.3); stroke-width: 1.5; fill: none; }
-.node-label { font-family: ‘DM Mono’, monospace; font-size: 9px; fill: var(–muted); }
-.edge-label { font-family: ‘DM Mono’, monospace; font-size: 8px; fill: rgba(0,229,192,0.5); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 800px) {
-.hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem 3rem; }
-.layers-grid { grid-template-columns: 1fr; }
-.flow-steps { flex-direction: column; }
-.flow-arrow { transform: rotate(90deg); }
-.why-grid { grid-template-columns: 1fr; }
-nav { padding: 1rem 1.5rem; }
-.nav-links { display: none; }
-section { padding: 3rem 1.5rem; }
-}
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+    .layers-grid { grid-template-columns: 1fr; }
+  }
 </style>
-
 </head>
 <body>
-<div class="glow-orb glow-1"></div>
-<div class="glow-orb glow-2"></div>
-<div class="glow-orb glow-3"></div>
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  <div class="glow-orb glow-3"></div>
 
-<div class="page">
+  <div class="page">
+    <nav>
+      <div class="nav-logo">Graph<span>Lens</span></div>
+      <div class="nav-links">
+        <a href="#architecture">Architecture</a>
+        <a href="#why">Why</a>
+        <a href="#github">GitHub</a>
+      </div>
+      <div class="nav-badge">MCP Server</div>
+    </nav>
 
-<!-- NAV -->
-
-<nav>
-  <div class="nav-logo">Graph<span>Lens</span></div>
-  <div class="nav-links">
-    <a href="#architecture">Architecture</a>
-    <a href="#why">Why it wins</a>
-    <a href="#mvp">Build the MVP</a>
-    <a href="#github">GitHub</a>
-  </div>
-  <div class="nav-badge">MCP Server · OSS</div>
-</nav>
-
-<!-- HERO -->
-
-<div class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">Open Source · Schema-as-a-Tool</div>
-    <h1>Turn any Knowledge Graph into an <em>Agentic OS</em></h1>
-    <p class="hero-sub">Stop writing custom tools for your LLM. GraphLens crawls your ontology and autogenerates a semantic interface that agents can actually understand — in 5 minutes.</p>
-    <div class="hero-ctas">
-      <button class="btn-primary">⬡ Get Started</button>
-      <button class="btn-ghost">View on GitHub →</button>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="graph-viz">
-      <svg class="graph-svg" viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg">
-        <!-- Edges -->
-        <path class="graph-edge-active" d="M 120 100 Q 190 80 255 130"/>
-        <path class="graph-edge-active" d="M 255 130 Q 310 175 295 240"/>
-        <path class="graph-edge" d="M 120 100 Q 130 180 160 240"/>
-        <path class="graph-edge" d="M 160 240 Q 220 260 295 240"/>
-        <path class="graph-edge" d="M 255 130 Q 340 100 360 160"/>
-        <path class="graph-edge" d="M 120 100 Q 70 150 90 220"/>
-        <!-- Edge labels -->
-        <text class="edge-label" x="174" y="82">WORKS_AT</text>
-        <text class="edge-label" x="285" y="178">PLACED_ORDER</text>
-        <text class="edge-label" x="113" y="200">MEMBER_OF</text>
-        <text class="edge-label" x="316" y="105">MANAGES</text>
-
-```
-    <!-- Node: Person -->
-    <g class="graph-node">
-      <circle cx="120" cy="100" r="8" fill="#00e5c0" opacity="0.9"/>
-      <circle cx="120" cy="100" r="18" fill="rgba(0,229,192,0.08)" stroke="rgba(0,229,192,0.3)" stroke-width="1"/>
-      <text class="node-label" x="120" y="130" text-anchor="middle" fill="#00e5c0">Person</text>
-    </g>
-    <!-- Node: Company -->
-    <g class="graph-node">
-      <circle cx="255" cy="130" r="8" fill="#7b5cff" opacity="0.9"/>
-      <circle cx="255" cy="130" r="18" fill="rgba(123,92,255,0.08)" stroke="rgba(123,92,255,0.3)" stroke-width="1"/>
-      <text class="node-label" x="255" y="160" text-anchor="middle" fill="#7b5cff">Company</text>
-    </g>
-    <!-- Node: Order -->
-    <g class="graph-node">
-      <circle cx="295" cy="240" r="8" fill="#ff6b35" opacity="0.9"/>
-      <circle cx="295" cy="240" r="18" fill="rgba(255,107,53,0.08)" stroke="rgba(255,107,53,0.3)" stroke-width="1"/>
-      <text class="node-label" x="295" y="270" text-anchor="middle" fill="#ff6b35">Order</text>
-    </g>
-    <!-- Node: Team -->
-    <g class="graph-node">
-      <circle cx="160" cy="240" r="6" fill="#4a5a7a" opacity="0.9"/>
-      <circle cx="160" cy="240" r="14" fill="rgba(74,90,122,0.08)" stroke="rgba(74,90,122,0.3)" stroke-width="1"/>
-      <text class="node-label" x="160" y="265" text-anchor="middle">Team</text>
-    </g>
-    <!-- Node: Manager -->
-    <g class="graph-node">
-      <circle cx="360" cy="165" r="6" fill="#4a5a7a" opacity="0.9"/>
-      <circle cx="360" cy="165" r="14" fill="rgba(74,90,122,0.08)" stroke="rgba(74,90,122,0.3)" stroke-width="1"/>
-      <text class="node-label" x="360" y="190" text-anchor="middle">Manager</text>
-    </g>
-    <!-- Node: Dept -->
-    <g class="graph-node">
-      <circle cx="90" cy="225" r="6" fill="#4a5a7a" opacity="0.9"/>
-      <text class="node-label" x="90" y="248" text-anchor="middle">Dept</text>
-    </g>
-
-    <!-- Generated Tool badge -->
-    <rect x="10" y="295" width="400" height="55" rx="3" fill="rgba(9,14,26,0.95)" stroke="rgba(0,229,192,0.2)" stroke-width="1"/>
-    <text x="22" y="315" font-family="DM Mono, monospace" font-size="9" fill="rgba(0,229,192,0.5)">// AUTOGENERATED TOOL</text>
-    <text x="22" y="333" font-family="DM Mono, monospace" font-size="9.5" fill="#a8d8ff">get_company_for_person<tspan fill="#c8d6f0">(person_name: </tspan><tspan fill="#ff6b35">str</tspan><tspan fill="#c8d6f0">)</tspan></text>
-    <text x="22" y="343" font-family="DM Mono, monospace" font-size="8" fill="#4a5a7a">▸ traverses Person -[WORKS_AT]→ Company</text>
-  </svg>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- PITCH BAR -->
-
-<div class="pitch-bar">
-  <strong>"Stop writing custom tools for your LLM.</strong>&nbsp;
-  Let GraphLens crawl your ontology and generate a semantic interface agents can actually understand."
-</div>
-
-<!-- ARCHITECTURE -->
-
-<section id="architecture">
-  <div class="section-label">Architecture</div>
-  <h2>Three Layers, One Semantic Bridge</h2>
-  <p style="max-width:600px; line-height:1.7; color:var(--text);">GraphLens operates as a database-agnostic MCP Server. The schema—not the data—is the API. Each layer transforms raw graph structure into agentic capability.</p>
-
-  <div class="layers-grid">
-    <div class="layer-card">
-      <div class="layer-num">01</div>
-      <div class="layer-icon">⬡</div>
-      <div class="layer-title">The Intake</div>
-      <div class="layer-sub">Adapters · T-Box Extraction</div>
-      <div class="layer-desc">Connects to your graph store and pulls the schema — the ontology's T-Box — not raw data. Understands OWL classes, RDF properties, and Cypher node labels.</div>
-      <div class="layer-tags">
-        <span class="tag">Neo4j</span>
-        <span class="tag">FalkorDB</span>
-        <span class="tag">Apache Jena</span>
-        <span class="tag">OWL / RDF</span>
+    <div class="hero">
+      <div class="hero-left">
+        <h1>Turn any Knowledge Graph into an <em>Agentic OS</em></h1>
+        <p class="hero-sub">The schema is the API. GraphLens autogenerates semantic interfaces that agents actually understand.</p>
+        <button class="btn-primary">Get Started</button>
+      </div>
+      <div class="hero-right">
+        <div class="graph-viz">
+           <!-- SVG Content Here -->
+        </div>
       </div>
     </div>
-    <div class="layer-card">
-      <div class="layer-num">02</div>
-      <div class="layer-icon">◈</div>
-      <div class="layer-title">Semantic Translator</div>
-      <div class="layer-sub">NL Descriptions · Path Rewriting</div>
-      <div class="layer-desc">Transforms graph paths into natural language tool descriptions. Instead of <code style="color:var(--accent);font-family:'DM Mono',monospace;font-size:0.8em">MATCH (a)-[:WORKS_AT]->(b)</code>, the agent sees: <em>"Find where a person is employed."</em></div>
-      <div class="layer-tags">
-        <span class="tag">Path Analysis</span>
-        <span class="tag">NL Generation</span>
-        <span class="tag">Relationship Scoring</span>
+
+    <section id="architecture">
+      <div class="layers-grid">
+        <div class="layer-card">
+          <div class="layer-title">The Intake</div>
+          <p class="layer-desc">Connects to Neo4j, FalkorDB, or RDF stores to extract the ontology T-Box.</p>
+        </div>
+        <div class="layer-card">
+          <div class="layer-title">Semantic Translator</div>
+          <p class="layer-desc">Converts raw Cypher paths into natural language tool descriptions.</p>
+        </div>
+        <div class="layer-card">
+          <div class="layer-title">Tool Factory</div>
+          <p class="layer-desc">Emits dynamic MCP tool definitions for Claude, LangGraph, and more.</p>
+        </div>
       </div>
-    </div>
-    <div class="layer-card">
-      <div class="layer-num">03</div>
-      <div class="layer-icon">⟐</div>
-      <div class="layer-title">Tool Factory</div>
-      <div class="layer-sub">JSON-Schema · MCP Protocol</div>
-      <div class="layer-desc">Dynamically emits JSON-Schema tool definitions. The agent sees the entire enterprise as a list of callable functions — and they stay in sync with schema changes automatically.</div>
-      <div class="layer-tags">
-        <span class="tag">JSON Schema</span>
-        <span class="tag">MCP Protocol</span>
-        <span class="tag">Auto-Sync</span>
-      </div>
+    </section>
+
+    <div class="cta-footer" id="github">
+      <h2 style="color: var(--white)">Ready to build?</h2>
+      <p style="color: var(--muted); margin: 1rem 0 2rem;">Open Source under MIT License.</p>
+      <button class="btn-primary">Star on GitHub</button>
     </div>
   </div>
-</section>
-
-<!-- DATA FLOW -->
-
-<section>
-  <div class="section-label">Data Flow</div>
-  <h2>From Ontology to Agent Tool</h2>
-  <div class="flow-section">
-    <div class="flow-title">// PIPELINE: schema input → semantic tool output</div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="flow-step-num">step_01</div>
-        <div class="flow-step-title">Schema Crawl</div>
-        <div class="flow-step-desc">Query DB metadata. Extract node types, relationship types, and property shapes.</div>
-        <div class="code-chip"><span class="kw">CALL</span> db.schema<br>.visualization()</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-step-num">step_02</div>
-        <div class="flow-step-title">Graph Parse</div>
-        <div class="flow-step-desc">Build an in-memory ontology graph. Score relationships by traversal depth and cardinality.</div>
-        <div class="code-chip"><span class="kw">class</span> <span class="fn">Ontology</span>:<br>&nbsp;&nbsp;nodes: <span class="str">List[NodeType]</span><br>&nbsp;&nbsp;edges: <span class="str">List[Relation]</span></div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-step-num">step_03</div>
-        <div class="flow-step-title">NL Synthesis</div>
-        <div class="flow-step-desc">Convert each meaningful edge into a human-readable tool description using template + LLM.</div>
-        <div class="code-chip"><span class="str">"Find where a person<br>&nbsp;is employed"</span></div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-step-num">step_04</div>
-        <div class="flow-step-title">Tool Emit</div>
-        <div class="flow-step-desc">Output JSON-Schema tool definitions. Register them as MCP tool endpoints. Agent can call them.</div>
-        <div class="code-chip"><span class="fn">get_company_for</span><br><span class="fn">_person</span>(<span class="str">name: str</span>)</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY -->
-
-<section id="why">
-  <div class="section-label">Why GraphLens Wins</div>
-  <h2>The Open Source Moat</h2>
-  <div class="why-grid">
-    <div class="why-card">
-      <div class="why-card-icon">⚡</div>
-      <div class="why-card-title">Plug-and-Play Agents</div>
-      <div class="why-card-desc">Install GraphLens, point it at your database, and your agent instantly understands your entire data model. <span class="why-highlight">No manual tool-writing required.</span></div>
-    </div>
-    <div class="why-card">
-      <div class="why-card-icon">♻</div>
-      <div class="why-card-title">Schema Change Resilience</div>
-      <div class="why-card-desc">When your database schema evolves, GraphLens re-crawls and re-emits tools automatically. <span class="why-highlight">Zero maintenance overhead</span> for your agent codebase.</div>
-    </div>
-    <div class="why-card">
-      <div class="why-card-icon">◈</div>
-      <div class="why-card-title">Framework Agnostic via MCP</div>
-      <div class="why-card-desc">Works with <span class="why-highlight">Claude Desktop, LangGraph, CrewAI, AutoGPT</span> out of the box. MCP is the lingua franca. GraphLens speaks it natively.</div>
-    </div>
-    <div class="why-card">
-      <div class="why-card-icon">⬡</div>
-      <div class="why-card-title">Semantic, Not Just Syntactic</div>
-      <div class="why-card-desc">Agents don't see Cypher queries — they see <span class="why-highlight">intent-driven function names</span>. The ontology becomes a cognitive map the LLM can reason about.</div>
-    </div>
-  </div>
-
-  <div class="compat-section">
-    <div class="compat-label">// Works with</div>
-    <div class="compat-pills">
-      <div class="compat-pill">Claude Desktop</div>
-      <div class="compat-pill">LangGraph</div>
-      <div class="compat-pill">CrewAI</div>
-      <div class="compat-pill">AutoGPT</div>
-      <div class="compat-pill">OpenAI Agents SDK</div>
-      <div class="compat-pill">Semantic Kernel</div>
-      <div class="compat-pill">Any MCP Client</div>
-    </div>
-  </div>
-</section>
-
-<!-- MVP -->
-
-<section id="mvp">
-  <div class="section-label">Build the MVP</div>
-  <h2>Three Steps to a Working Prototype</h2>
-
-  <div class="roadmap">
-
-```
-<div class="roadmap-item">
-  <div class="roadmap-step">1</div>
-  <div class="roadmap-content">
-    <div class="roadmap-title">The Schema Crawler</div>
-    <div class="roadmap-desc">Query the database's own metadata APIs. For Neo4j, use the built-in schema visualization procedure. For RDF, a SPARQL query surfaces all distinct predicate types.</div>
-    <div class="code-block">
-```
-
-<span class="c-comment"># neo4j_adapter.py</span><br>
-<span class="c-kw">def</span> <span class="c-fn">crawl_schema</span>(<span class="c-var">driver</span>):<br>
-  <span class="c-kw">with</span> <span class="c-var">driver</span>.session() <span class="c-kw">as</span> <span class="c-var">session</span>:<br>
-    <span class="c-kw">return</span> <span class="c-var">session</span>.<span class="c-fn">run</span>(<span class="c-str">“CALL db.schema.visualization()”</span>).data()<br>
-<br>
-<span class="c-comment"># rdf_adapter.py</span><br>
-<span class="c-var">SPARQL_PREDICATES</span> = <span class="c-str">”””</span><br>
-  <span class="c-str">SELECT DISTINCT ?p WHERE { ?s ?p ?o }</span><br>
-<span class="c-str">”””</span>
-</div>
-</div>
-</div>
-
-```
-<div class="roadmap-item">
-  <div class="roadmap-step">2</div>
-  <div class="roadmap-content">
-    <div class="roadmap-title">The Semantic Translator</div>
-    <div class="roadmap-desc">Convert the raw schema into a rich system prompt. The agent now has a cognitive map of the enterprise — relationships, entities, and traversal options — expressed in natural language.</div>
-    <div class="code-block">
-```
-
-<span class="c-kw">def</span> <span class="c-fn">build_system_prompt</span>(<span class="c-var">ontology</span>: <span class="c-cls">Ontology</span>) -> <span class="c-cls">str</span>:<br>
-  <span class="c-var">lines</span> = [<span class="c-str">“You are an agent with access to an Enterprise Graph.”</span>]<br>
-  <span class="c-kw">for</span> <span class="c-var">rel</span> <span class="c-kw">in</span> <span class="c-var">ontology</span>.relationships:<br>
-    <span class="c-var">desc</span> = <span class="c-fn">nl_describe</span>(<span class="c-var">rel</span>)  <span class="c-comment"># “Navigate from X to Y via REL”</span><br>
-    <span class="c-var">lines</span>.<span class="c-fn">append</span>(<span class="c-var">desc</span>)<br>
-  <span class="c-kw">return</span> <span class="c-str">”\n”</span>.<span class="c-fn">join</span>(<span class="c-var">lines</span>)
-</div>
-</div>
-</div>
-
-```
-<div class="roadmap-item">
-  <div class="roadmap-step">3</div>
-  <div class="roadmap-content">
-    <div class="roadmap-title">The Tool Factory</div>
-    <div class="roadmap-desc">Wrap each relationship as a typed Python function and register it as an MCP tool. Queries are dynamically generated from the ontology — no hardcoded Cypher.</div>
-    <div class="code-block">
-```
-
-<span class="c-kw">def</span> <span class="c-fn">traverse_relationship</span>(<br>
-    <span class="c-var">start_node</span>: <span class="c-cls">str</span>,<br>
-    <span class="c-var">relationship_type</span>: <span class="c-cls">str</span><br>
-) -> <span class="c-cls">list</span>:<br>
-  <span class="c-comment"># Dynamically built from ontology — no hardcoding</span><br>
-  <span class="c-var">query</span> = (<br>
-    <span class="c-str">f”MATCH (n {{name: ‘{start_node}’}})”</span><br>
-    <span class="c-str">f”-[:{relationship_type}]->(m) RETURN m”</span><br>
-  )<br>
-  <span class="c-kw">return</span> <span class="c-fn">execute</span>(<span class="c-var">query</span>)<br>
-<br>
-<span class="c-comment"># Register as MCP tool endpoint</span><br>
-<span class="c-var">mcp_server</span>.<span class="c-fn">register_tool</span>(<span class="c-var">traverse_relationship</span>)
-</div>
-</div>
-</div>
-
-  </div>
-</section>
-
-<!-- CTA -->
-
-<div class="cta-footer" id="github">
-  <div class="section-label" style="margin-bottom:1rem">Open Source · MIT License</div>
-  <h2 style="margin-bottom:1rem">GraphLens is ready to build.<br><em style="font-style:italic;font-weight:200;color:var(--accent)">Are you?</em></h2>
-  <p>A single MCP server that turns any knowledge graph into an agentic OS. Built for data scientists, loved by LLM engineers.</p>
-  <a class="github-link" href="#">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-    Star GraphLens on GitHub
-  </a>
-</div>
-
-</div><!-- .page -->
 </body>
 </html>
